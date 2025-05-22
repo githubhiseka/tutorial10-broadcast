@@ -15,3 +15,11 @@ When a client is started, the server detects a new connection from that client�
 After changing the port, the chat broadcast still works as usual. The difference is that we now explicitly instruct the server to listen on port 8080. To ensure the broadcast continues to function, both WebSocket connections—on the client and server sides—must operate on the same port. If they use different ports, the two sides won’t be able to communicate or establish a connection.
 
 In this case, since we have both `client.rs` and `server.rs`, we need to update the port settings in both files where the WebSocket connections are defined. Both WebSocket implementations appear to be using the same protocol, which is TCP.
+
+### 2.3. Small changes, add IP and Port
+
+![port_change](port_change.png)
+
+First, on the server side, I modified the part that prints `"New connection from..."` by adding my name there. I changed that section specifically because it prints a string directly. Then, I updated the `handle_connection` function—particularly the part that sends messages using `bcast_tx`. In that section, I changed the message to a formatted string that includes the sender’s address. This way, the string received by the clients includes the IP address of the client that sent the message.
+
+On the client side, I only modified the `"From server: ..."` string by adding my name to it.
